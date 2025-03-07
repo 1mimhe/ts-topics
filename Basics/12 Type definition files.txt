@@ -1,0 +1,12 @@
+'.d.ts' files:
+.d.ts files are declaration files that contain only type information. These files don’t produce .js outputs; they are only used for typechecking.
+
+TypeScript includes declaration files for all of the standardized built-in APIs available in JavaScript runtimes.
+
+# For non-built-in APIs, there are a variety of ways you can get declaration files:
+## DefinitelyTyped / @types:
+	The DefinitelyTyped repository is a centralized repo storing declaration files for thousands of 	libraries. The vast majority of commonly-used libraries have declaration files available on 	DefinitelyTyped.
+	=> npm i @types/{library-name}
+## Bundled Types:
+	TypeScript is able to automatically resolve the types for you.
+

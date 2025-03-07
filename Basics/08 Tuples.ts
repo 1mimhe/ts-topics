@@ -1,3 +1,4 @@
+// Array-like structure where each element represents some property of a record.
 // a arrays with fixed element orders.
 // each element represents something.
 

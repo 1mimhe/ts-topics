@@ -52,3 +52,6 @@ class Car extends Vehicle {
 const car = new Car(4, 'red');
 car.startDrivingProcess();
 // console.log(car.wheels); => error
+
+// export class Car {} => import { Car } from './Car';
+// export default Car {} => import Car from './Car';
