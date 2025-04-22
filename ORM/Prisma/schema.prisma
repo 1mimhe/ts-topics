@@ -1,0 +1,105 @@
+generator client {
+  provider = "prisma-client-js"
+  // previewFeatures = ["prismaSchemaFolder"] => for multiple Prisma Schema files
+}
+
+datasource db {
+  provider = "postgres"
+  // url      = "postgres://postgres:postgres@localhost:5432/prisma-test"
+  url      = env("DATABASE_URL")
+}
+
+// The data model definition is made up of:
+// Models (model primitives) that define a number of fields, including relations between models
+// Enums (enum primitives) (if your connector supports Enums)
+// Attributes and functions that change the behavior of fields and models
+
+// The properties of a model are called fields, which consist of:
+// A field name
+// A field type
+// Optional type modifiers => ? [] (cannot combine them)
+// Optional attributes, including native database type attributes
+
+model User {
+  id           Int          @id @default(autoincrement())
+  username     String       @unique @db.VarChar(255)
+  password     String       @db.VarChar(161) // native database type attributes (type attributes) that describe the underlying database type (optional)
+  firstName    String
+  lastName     String?
+  bio          String?
+  profilePhoto String?
+  dateOfBirth  DateTime?
+  gender       users_gender
+  status       String?
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime?    @updatedAt
+  deletedAt    DateTime?
+  addresses    Address[] // one-to-many => user have multiple address
+  contact      contacts[]
+  role         roles? // one-to-one
+
+  @@map("users") // Mapping model names to tables or collections
+  // @map and @@map => decoupling model and field names from table and column names in the underlying database
+}
+
+model Address {
+  id            Int       @id @default(autoincrement())
+  recipientName String    @db.VarChar(60)
+  country       String    @default("Iran") @db.VarChar(30)
+  province      String    @db.VarChar(30)
+  city          String    @db.VarChar(30)
+  postalAddress String    @db.Text
+  postalCode    String?   @db.VarChar(10)
+  phoneNumber   String    @db.VarChar(11)
+  userId        Int // Foreign Key
+  createdAt     DateTime  @default(now()) @db.Timestamp()
+  updatedAt     DateTime  @updatedAt @db.Timestamp()
+  deletedAt     DateTime? @db.Timestamp()
+  users         User      @relation(fields: [userId], references: [id], onDelete: Cascade, map: "addresses_ibfk_1")
+  // one-to-many => address belongs to user
+
+  @@index([userId], map: "userId_index")
+  @@map("addresses")
+}
+
+model contacts {
+  id                    Int       @id @default(autoincrement())
+  phoneNumber           String    @unique(map: "phoneNumber") @db.VarChar(11)
+  isVerifiedPhoneNumber Boolean?  @default(false)
+  email                 String?   @unique(map: "email") @db.VarChar(50)
+  isVerifiedEmail       Boolean?  @default(false)
+  userId                Int?
+  createdAt             DateTime  @default(now()) @db.Timestamp()
+  updatedAt             DateTime? @updatedAt @db.Timestamp()
+  deletedAt             DateTime? @db.Timestamp()
+  users                 User?     @relation(fields: [userId], references: [id], onDelete: Cascade, map: "contacts_ibfk_1")
+
+  @@index([userId], map: "contact-userId")
+}
+
+model roles {
+  id        Int        @id @default(autoincrement())
+  name      roles_name
+  userId    Int?       @unique
+  createdAt DateTime   @default(now()) @db.Timestamp()
+  updatedAt DateTime?  @updatedAt @db.Timestamp()
+  deletedAt DateTime?  @db.Timestamp()
+  user      User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId], map: "role-userId")
+}
+
+enum roles_name {
+  customer
+  admin
+  content_manager   @map("content-manager")
+  inventory_manager @map("inventory-manager")
+  order_manager     @map("order-manager")
+  publisher
+}
+
+enum users_gender {
+  male
+  female
+  other
+}

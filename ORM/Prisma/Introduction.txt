@@ -1,0 +1,10 @@
+The Prisma schema allows developers to define their application models in an intuitive data modeling language (.prisma).
+
+Prisma Client is an auto-generated and type-safe query builder
+that is tailored specifically to your database schema.
+
+Generate => npm install @prisma/client => prisma generate
+then import { PrismaClient } from '@prisma/client'
+
+After you change your data model, you'll need to manually re-generate Prisma Client to ensure the client gets updated.
+
