@@ -1,5 +1,6 @@
 // Decorators in TypeScript are a special kind of declaration
 // that can be attached to a class declaration, method, accessor, property, or parameter.
+// That can be used to modify/change/anything different properties/methods in the class.
 // They use the form @function, the function that will be called at runtime
 // with information about the decorated declaration.
 
@@ -79,7 +80,7 @@ function enumerable(value: boolean) {
   return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
     // target:
     // Either the constructor function of the class for a static member,
-    // or the prototype of the class for an instance member.
+    // or the prototype (include methods and accessors) of the class for an instance member.
     // propertyKey: The name of the member.
     // descriptor: The Property Descriptor for the member.
     // If the method decorator returns a value, it will be used as the Property Descriptor for the method.
