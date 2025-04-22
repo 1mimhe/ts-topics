@@ -50,7 +50,7 @@ enum MatchResult {
 
 type MatchData = [Date, string, string, number, number, MatchResult, string];
 
-class MatchReader extends CsvFileReader<MatchData> {
+export class MatchReader extends CsvFileReader<MatchData> {
   mapRow(row: string[]): MatchData {
     return [
       dateStringToDate(row[0]),
