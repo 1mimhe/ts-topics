@@ -59,9 +59,9 @@ class ExampleClass {
 // can be used to observe, modify, or replace a class definition.
 // A class decorator cannot be used in a declaration file, or in any other ambient context (such as on a declare class).
 
-function sealed(constructor: Function) {
-  Object.seal(constructor);
-  Object.seal(constructor.prototype);
+function sealed(target: Function) {
+  Object.seal(target); // target => constructor
+  Object.seal(target.prototype);
 }
 
 @sealed
