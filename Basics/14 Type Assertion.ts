@@ -6,4 +6,11 @@
 const myCanvas = <HTMLCanvasElement> document.getElementById("main_canvas");
 const myCanvas2 = document.getElementById("main_canvas") as HTMLCanvasElement;
 
-// TypeScript only allows type assertions which convert to a more specific or less specific version of a type (like casting). 
+// TypeScript only allows type assertions which convert to a more specific or less specific version of a type (like casting).
+
+// Non-null Assertion Operator (Postfix !)
+// Writing ! after any expression is effectively a type assertion that the value isn’t null or undefined:
+function liveDangerously(x?: number | null) {
+  // No error
+  console.log(x!.toFixed());
+}

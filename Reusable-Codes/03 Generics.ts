@@ -85,3 +85,23 @@ function loggingIdentity<Type extends Lengthwise>(arg: Type): Type {
   console.log(arg.length); // Now we know it has a .length property, so no more error
   return arg;
 }
+
+// You can declare a type parameter that is constrained by another type parameter.
+class Attributes<T> {
+  constructor(private data: T) {}
+
+  get<K extends keyof T>(key: K): T[K] {
+    return this.data[key];
+  }
+
+  set(update: T): void {
+    this.data = update;
+  }
+}
+
+let x = new Attributes({ name: 'John', age: 23, gender: true });
+const age = x.get('age');
+// key type => 'name' | 'age' | 'gender' => **
+// age type => number (not any or string | number | boolean)
+
+// x.get('phoneNumber'); => Got an error.

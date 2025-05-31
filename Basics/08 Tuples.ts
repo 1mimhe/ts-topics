@@ -2,7 +2,7 @@
 // a arrays with fixed element orders.
 // each element represents something.
 
-const drink = {
+const drink2 = {
   color: 'brown',
   carbonated: true,
   sugar: 40,

@@ -16,8 +16,8 @@ let now: Date = new Date();
 let colors: string[] = ['red', 'green', 'blue']; // array
 
 // class
-class Car {}
-let car: Car = new Car();
+class Person {}
+let person: Person = new Person();
 
 // object literal
 let point: { x: number; y: number } = {

@@ -34,7 +34,7 @@ vehicle.pio();
 
 class Car extends Vehicle {
   // we override constructor here. but we must ensure that super() is called.
-  constructor(private wheels: number, color: string) {
+  constructor(private wheels: number, color: string, private brand: string, private model: string) {
     super(color);
   }
 
@@ -47,11 +47,26 @@ class Car extends Vehicle {
     this.honk();
     console.log(this.wheels);
   }
+
+  // Accessors
+  get fullName() {
+    return `${this.brand} - ${this.model}`;
+  }
+
+  // We can also return a method with accessors.
+  /*
+  get on() {
+    return ... => when this method changes. We don't need to change every methods we use this in it.
+  }
+  we call it like this => car.on(we see the original method's parameters)
+  */
 }
 
-const car = new Car(4, 'red');
-car.startDrivingProcess();
+const newCar = new Car(4, 'red', 'BMW', 'X1 SUV');
+newCar.startDrivingProcess();
 // console.log(car.wheels); => error
+
+console.log(newCar.fullName); // 'BMW - X1 SUV'
 
 // export class Car {} => import { Car } from './Car';
 // export default Car {} => import Car from './Car';
