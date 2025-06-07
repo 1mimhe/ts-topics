@@ -7,7 +7,7 @@ const carsByMake: string[][] = []; // w-dimensional array
 const car = carMakers[0];
 
 // Prevent incompatible values
-carMakers.push(100); // Error occurs
+// carMakers.push(100); // Error occurs
 
 // Help with 'map' and other built-in methods
 carMakers.map((car: string): string => {
@@ -19,3 +19,7 @@ carMakers.map((car: string): string => {
 const importantDates: (Date | string)[] = [];
 importantDates.push('2030-10-10');
 importantDates.push(new Date());
+
+// Readonly array
+const args = [8, 5] as const;
+// It has fixed length and exact values
